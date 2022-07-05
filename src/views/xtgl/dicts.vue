@@ -1,7 +1,5 @@
 <template>
-  <div>
-
-  </div>
+  <div>dicts</div>
 </template>
 
 <script setup></script>

@@ -1,13 +1,15 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: '/dev-api',
-  timeout: 5000
+  baseURL: 'https://www.markerhub.com/vueadmin-java/',
+  timeout: 3000
 })
 
 // 添加请求拦截器
 instance.interceptors.request.use(
   function (config) {
+    config.headers.Authorization =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjU3MDAyMjIxLCJleHAiOjE2NTc2MDcwMjF9.KmOXxjmGl8hqbE_PxFNPktQy_5qDvuyqzRi-KiwHDx_XJaizHUZi1r4nhIgeJn30hXL0oGBADt9LIWldk8GeNw'
     // 在发送请求之前做些什么
     return config
   },
@@ -30,5 +32,12 @@ instance.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+// 传参处理
+const request = (options) => {
+  if (options.method.toLowerCase() === 'get') {
+    options.params = options.data || {}
+  }
+  return instance(options)
+}
 
-export default instance
+export default request

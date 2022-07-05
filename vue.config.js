@@ -6,12 +6,13 @@ module.exports = defineConfig({
     https: false,
     host: 'localhost',
     port: 9999,
+    open: false,
     proxy: {
-      '/dev-api': {
-        target: '',
+      [process.env.VUE_APP_BASE_API]: {
+        target: process.env.VUE_APP_SERVICE_URL,
         changeOrigin: true,
         pathRewrite: {
-          '^/dev-api': ''
+          ['^' + process.env.VUE_APP_BASE_API]: ''
         }
       }
     }
